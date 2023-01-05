@@ -13,12 +13,13 @@ public class Player : MonoBehaviour
     float _fire = 0.2f;
     float _canFire = 0.0f;
     static float _live = 3;
+    SpawnManager _manager;
 
   
     // Start is called before the first frame update
     void Start()
     {
-
+        _manager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
     }
 
     // Update is called once per frame
@@ -73,6 +74,7 @@ public class Player : MonoBehaviour
         Debug.Log(_live);
         if (_live < 1)
         {
+            _manager.playerDeath();
             Destroy(this.gameObject);
         }
     }
