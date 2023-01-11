@@ -19,6 +19,11 @@ public class Enemy : MonoBehaviour
         float speed = 4f;
         Vector3 move = Vector3.down * speed * Time.deltaTime;
         transform.Translate(move);
+
+        if (transform.position.y >= -7)
+        {
+            Destroy(this.gameObject);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -30,6 +35,7 @@ public class Enemy : MonoBehaviour
         if (collision.tag == "LASER")
         {
             Destroy(this.gameObject);
+            Destroy(collision.gameObject);
         }
     }
 }

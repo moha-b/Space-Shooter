@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     //[SerializeField] GameObject _liser;
     int _lives = 3;
     SpawnManager _spawnManager;
+    [SerializeField] GameObject _laser;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,13 +19,17 @@ public class Player : MonoBehaviour
     void Update()
     {
         movement();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            fire();
+        }
     }
 
     void movement()
     {
         float xAxis = Input.GetAxisRaw("H");
         float yAxis = Input.GetAxisRaw("V");
-        float speed = 4f;
+        float speed = 6f;
         Vector3 move = new Vector3(xAxis, yAxis, 0f) * speed * Time.deltaTime;
         
         transform.Translate(move);
@@ -37,6 +42,18 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(-8f, transform.position.y, 0f);
         }
+        if (transform.position.y >= 4)
+        {
+            transform.position = new Vector3(transform.position.x, 4f, 0f);
+        }
+        else if (transform.position.y <= -4)
+        {
+            transform.position = new Vector3(transform.position.x, -4f, 0f);
+        }
+    }
+    void fire()
+    { 
+        Instantiate(_laser, transform.position, Quaternion.identity);
     }
     public void damage()
     {
