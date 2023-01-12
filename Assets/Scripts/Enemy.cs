@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
         Vector3 move = Vector3.down * speed * Time.deltaTime;
         transform.Translate(move);
 
-        if (transform.position.y >= -7)
+        if (transform.position.y <= -7)
         {
             Destroy(this.gameObject);
         }
@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour
         {
             Destroy(this.gameObject);
             Destroy(collision.gameObject);
+            _player.addScore(10);
         }
     }
 }

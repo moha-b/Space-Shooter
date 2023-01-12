@@ -7,22 +7,22 @@ public class Player : MonoBehaviour
 
     //[SerializeField] GameObject _liser;
     int _lives = 3;
+    int _score = 0;
     SpawnManager _spawnManager;
+    UiManager _uiManager;
     [SerializeField] GameObject _laser;
     // Start is called before the first frame update
     void Start()
     {
         _spawnManager = GameObject.Find("SpawnEnemies").GetComponent<SpawnManager>();
+        _uiManager = GameObject.Find("Canvas").GetComponent<UiManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
         movement();
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            fire();
-        }
+        fire();
     }
 
     void movement()
@@ -52,8 +52,11 @@ public class Player : MonoBehaviour
         }
     }
     void fire()
-    { 
-        Instantiate(_laser, transform.position, Quaternion.identity);
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(_laser, transform.position, Quaternion.identity);
+        }
     }
     public void damage()
     {
@@ -63,5 +66,10 @@ public class Player : MonoBehaviour
             Destroy(this.gameObject);
             _spawnManager.onPlayerDeath();
         }
+    }
+    public void addScore(int points)
+    {
+        _score += points;
+        _uiManager.updateScore(_score);
     }
 }
