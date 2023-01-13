@@ -11,9 +11,13 @@ public class Player : MonoBehaviour
     SpawnManager _spawnManager;
     UiManager _uiManager;
     [SerializeField] GameObject _laser;
+    [SerializeField] AudioClip _laserClip;
+    AudioSource _audioSource;
     // Start is called before the first frame update
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.clip = _laserClip;     
         _spawnManager = GameObject.Find("SpawnEnemies").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UiManager>();
     }
@@ -56,11 +60,14 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Instantiate(_laser, transform.position, Quaternion.identity);
+            _audioSource.Play();
         }
+
     }
     public void damage()
     {
         _lives--;
+        _uiManager.updateLives(_lives);
         if (_lives < 1)
         {
             Destroy(this.gameObject);
