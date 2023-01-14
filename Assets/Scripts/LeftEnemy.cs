@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class LeftEnemy : MonoBehaviour
 {
     Player _player;
     void Start()
@@ -17,10 +17,10 @@ public class Enemy : MonoBehaviour
     void movement()
     {
         float speed = 4f;
-        Vector3 move = Vector3.down * speed * Time.deltaTime;
+        Vector3 move = Vector3.right * speed * Time.deltaTime;
         transform.Translate(move);
 
-        if (transform.position.y <= -7)
+        if (transform.position.x >= 9)
         {
             Destroy(this.gameObject);
         }
